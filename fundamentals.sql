@@ -4,15 +4,27 @@ SELECT DISTINCT(rating) FROM film;
 --SELECT COUNT
 SELECT COUNT(DISTINCT(rating)) FROM film;
 
--- SELECT WHERE
--- Question 1
+--SELECT WHERE
+-- Q1
 SELECT email FROM customer
 WHERE first_name = 'Nancy' and last_name = 'Thomas';
--- Question 2
+-- Q2
 SELECT description FROM film
 WHERE title = 'Outlaw Hanky'
--- Question 3
+-- Q3
 SELECT phone FROM address
 WHERE address = '259 Ipoh Drive';
 
 --ORDER BY
+--Q1
+SELECT customer_id FROM payment
+ORDER BY payment_date ASC
+LIMIT 10;
+--Q2
+SELECT title,length FROM film
+ORDER BY length ASC
+LIMIT 5;
+--Q3
+SELECT COUNT(title) FROM film
+WHERE length <= 50;
+
