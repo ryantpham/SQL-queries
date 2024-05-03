@@ -28,3 +28,13 @@ LIMIT 5;
 SELECT COUNT(title) FROM film
 WHERE length <= 50;
 
+--BETWEEN
+SELECT amount FROM payment
+WHERE amount BETWEEN 8 and 9;
+
+SELECT amount FROM payment
+WHERE amount NOT BETWEEN 8 and 9;
+
+--IN
+SELECT * FROM customer
+WHERE first_name IN('Jared','Maria','Linda');
