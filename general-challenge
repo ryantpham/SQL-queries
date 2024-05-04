@@ -3,3 +3,8 @@ SELECT * from payment
 WHERE amount > 5
 ORDER BY amount ASC;
 
+--How many actors have a first name that starts with the letter P?
+SELECT COUNT(*) FROM actor
+WHERE first_name LIKE'P%';
+
+--How many unique districts are our customers from?
