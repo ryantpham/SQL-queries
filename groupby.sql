@@ -13,3 +13,10 @@ SELECT COUNT(replacement_cost) FROM film;
 SELECT 
 	ROUND(AVG(replacement_cost),3) 
 FROM film;
+
+--GROUP BY
+--EX syntax
+SELECT rating,COUNT(release_year) FROM film
+WHERE rating != 'R'
+GROUP BY rating
+ORDER BY COUNT(release_year);
