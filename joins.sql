@@ -3,7 +3,7 @@ SELECT customer_id,SUM(amount) AS total_spent FROM payment
 GROUP BY customer_id
 HAVING SUM(amount) > 200;
 
---INNER JOIN
+--INNER JOIN: Looking for a match in both tables
 SELECT first_name, payment.customer_id, payment_id 
 FROM payment
 INNER JOIN customer
