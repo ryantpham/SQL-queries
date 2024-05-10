@@ -23,3 +23,17 @@ ON film.film_id = film_actor.film_id
 FULL OUTER JOIN actor
 ON actor.actor_id = film_actor.actor_id
 WHERE first_name = 'Nick' AND last_name = 'Wahlberg'
+
+--Graph Visualizer 
+SELECT rating,COUNT(rating) FROM actor 
+INNER JOIN film_actor 
+ON actor.actor_id = film_actor.actor_id
+INNER JOIN film
+ON film.film_id = film_actor.film_id
+WHERE first_name = 'Nick' and last_name = 'Wahlberg'
+GROUP BY rating
+ORDER BY COUNT(rating) DESC
+
+--Graph Type: Bar Chart
+--X Axis: rating
+--Y Axis: count
