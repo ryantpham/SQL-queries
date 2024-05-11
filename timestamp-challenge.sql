@@ -23,3 +23,13 @@ ORDER BY TO_CHAR(payment_date,'d'); --Sort Monday-Sunday
 --Stacked Line Chart
 --X Axis: week_day
 --Y Axis: sum
+
+--Example
+SELECT TO_CHAR(payment_date,'d') AS week_day,SUM(amount) FROM payment
+GROUP BY TO_CHAR(payment_date,'d')
+ORDER BY TO_CHAR(payment_date,'d');
+
+--Graph Visualiser
+--Stacked Line Chart
+--X Axis: week_day
+--Y Axis: sum
