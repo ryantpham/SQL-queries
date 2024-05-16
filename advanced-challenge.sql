@@ -38,3 +38,5 @@ FROM customer;
 
 SELECT LOWER(LEFT(first_name,1)) || LOWER(last_name) || '@company_name.com' AS custom_email
 FROM customer;
+
+--Subquery
