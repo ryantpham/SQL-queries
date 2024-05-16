@@ -32,3 +32,9 @@ FROM film;
 SELECT ROUND(replacement_cost * .10,2) AS deposit_amount
 FROM film;
 
+--String functions and operators
+SELECT first_name || ' ' || last_name AS full_name
+FROM customer;
+
+SELECT LOWER(LEFT(first_name,1)) || LOWER(last_name) || '@company_name.com' AS custom_email
+FROM customer;
