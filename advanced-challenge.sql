@@ -23,3 +23,12 @@ FROM payment
 
 SELECT to_char(payment_date,'MONTH-month-mm')
 FROM payment
+
+-- Mathematical functions and operators
+    --https://www.postgresql.org/docs/9.5/functions-math.html
+SELECT ROUND(rental_rate/replacement_cost,2) * 10 AS cost_percentage
+FROM film;
+
+SELECT ROUND(replacement_cost * .10,2) AS deposit_amount
+FROM film;
+
