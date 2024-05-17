@@ -40,3 +40,18 @@ SELECT LOWER(LEFT(first_name,1)) || LOWER(last_name) || '@company_name.com' AS c
 FROM customer;
 
 --Subquery
+SELECT rental_rate FROM film
+WHERE rental_rate < (SELECT AVG(rental_rate) FROM film) 
+
+SELECT 
+    rental_rate, 
+    ROUND(rental_rate + (SELECT AVG(rental_rate) FROM film),2) AS added_avg
+FROM film;
+
+SELECT film_id,title FROM film
+WHERE film_id IN
+(SELECT inventory.film_id FROM rental
+INNER JOIN inventory 
+ON inventory.inventory_id = rental.inventory_id
+WHERE return_date BETWEEN '2005-05-28' AND '2005-05-30')
+ORDER BY title ASC;
