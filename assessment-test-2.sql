@@ -1,11 +1,15 @@
 -- 1. Retrieve all the information from the cd.facilities table.
 -- Expected Result: (Full table content)
+SELECT * FROM cd.facilities;
 
 -- 2. Print out a list of all the facilities and their cost to members.
 -- Expected Result: (Facility names and costs)
+SELECT name, membercost FROM cd.facilities;
 
 -- 3. Produce a list of facilities that charge a fee to members.
 -- Expected Result: 5 rows
+SELECT name,membercost FROM cd.facilities
+WHERE membercost > 0;
 
 -- 4. Produce a list of facilities that charge a fee to members, and that fee is less than 1/50th of the monthly maintenance cost.
 -- Return the facid, facility name, member cost, and monthly maintenance.
