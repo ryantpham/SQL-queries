@@ -1,5 +1,5 @@
 -- Retrieves camera connection data for 'BolsaChica' network within the last day, ordered by last connection time.
-SELECT cs.update_time,TO_CHAR(cs.update_time, 'HH12:MI AM') AS formatted_time,
+SELECT cs.update_time,TO_CHAR(cs.update_time, 'YYYY-MM-DD HH12:MI:SS AM') AS formatted_time,
        cs.case_id,c.pi_id,wifi_name,status
 FROM tracedb.case_sessions cs
 INNER JOIN tracedb.cases c
