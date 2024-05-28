@@ -100,3 +100,33 @@ FROM
 WHERE
     NULLIF(json_extract_path_text(camera_metadata, 'game_info_v3', 'battery', 'percent_minute'), '')::float <= 0.6
 ORDER BY game_date DESC;
+
+--Second sumbission for ALEX
+WITH battery_perc AS (
+    SELECT
+        gr.camera_metadata AS camera_metadata,
+        gr.soccer_game_id,
+        g.date AS game_date,
+        NULLIF(json_extract_path_text(gr.camera_metadata, 'battery', 'percent_minute'), '')::float AS percent_minute,
+        NULLIF(json_extract_path_text(gr.camera_metadata, 'battery', 'sn'), '') AS battery_sn,
+        ROW_NUMBER() OVER (
+            PARTITION BY COALESCE(json_extract_path_text(gr.camera_metadata, 'cameraID', ''), '')
+            ORDER BY g.date ASC
+        ) AS row_num
+    FROM
+        tracedb.game_resources gr
+    JOIN
+        tracedb.games g ON gr.soccer_game_id = g.game_id
+    WHERE
+        g.date >= '2023-01-01' --Limit games to only after 2023-01-01
+)
+SELECT
+    json_extract_path_text(camera_metadata, 'game_info_v3', 'caseID') AS case_id,
+    NULLIF(json_extract_path_text(camera_metadata, 'game_info_v3', 'battery', 'percent_minute'), '')::float AS percent_minute,
+    game_date AS first_game_date,
+    NULLIF(json_extract_path_text(camera_metadata, 'game_info_v3', 'battery', 'sn'), '') AS battery_sn
+FROM
+    battery_perc
+WHERE
+    NULLIF(json_extract_path_text(camera_metadata, 'game_info_v3', 'battery', 'percent_minute'), '')::float <= 0.6
+ORDER BY game_date DESC;
