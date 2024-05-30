@@ -130,3 +130,35 @@ FROM
 WHERE
     NULLIF(json_extract_path_text(camera_metadata, 'game_info_v3', 'battery', 'percent_minute'), '')::float <= 0.6
 ORDER BY game_date DESC;
+
+-- Final adjustment (need review)
+WITH battery_perc AS (
+    SELECT
+        gr.camera_metadata AS camera_metadata,
+        gr.soccer_game_id,
+        g.date AS game_date,
+        NULLIF(json_extract_path_text(gr.camera_metadata, 'game_info_v3', 'caseID'), '') AS camera_id,
+        SPLIT_PART(COALESCE(g.camera_pi_id, g.pi_id), '/', 1) AS cam_id,
+        NULLIF(json_extract_path_text(gr.camera_metadata, 'game_info_v3', 'battery', 'percent_minute'), '')::float AS percent_minute,
+        NULLIF(json_extract_path_text(gr.camera_metadata, 'game_info_v3', 'battery', 'sn'), '') AS battery_sn,
+        DENSE_RANK() OVER (
+            PARTITION BY COALESCE(json_extract_path_text(gr.camera_metadata, 'game_info_v3', 'cameraID', ''), '')
+            ORDER BY g.date ASC -- Earliest Game (so starting at 2024-01-02)
+        ) AS row_num
+    FROM
+        tracedb.game_resources gr
+    JOIN
+        tracedb.games g ON gr.soccer_game_id = g.game_id
+    WHERE
+        g.date > '2023-01-01' -- Limit games to only after 2023-01-01
+)
+SELECT
+    cam_id,
+    json_extract_path_text(camera_metadata, 'game_info_v3', 'caseID') AS case_id,
+    NULLIF(json_extract_path_text(camera_metadata, 'game_info_v3', 'battery', 'percent_minute'), '')::float AS percent_minute,
+    game_date AS first_game_date,
+    NULLIF(json_extract_path_text(camera_metadata, 'game_info_v3', 'battery', 'sn'), '') AS battery_sn
+FROM
+    battery_perc
+WHERE row_num = 1
+ORDER BY game_date DESC;
