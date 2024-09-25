@@ -1,5 +1,5 @@
 ```mermaid
-graph TD
+graph LR
     A[Cafeteria Ordering System]
 
     subgraph ''
