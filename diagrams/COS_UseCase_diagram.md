@@ -1,5 +1,5 @@
 ```mermaid
-flowchart LR
+flowchart TD
     A[Customer] --> B[COS]
     B --> C{Select Service}
     C -->|Delivery| D[Choose Location]
