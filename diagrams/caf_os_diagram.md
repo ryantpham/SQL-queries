@@ -6,6 +6,7 @@ graph LR
         B[Ordering System]
         B1[FE-1: Order meals from the cafeteria menu for pickup or delivery]
         B2[FE-2: Order meals from local restaurants for delivery]
+        B3[FE-9: Track order status]
     end
 
     subgraph ''
@@ -22,11 +23,13 @@ graph LR
         E[Menu and Custom Orders]
         E1[FE-5: Manage cafeteria menus - create, view, modify, delete]
         E2[FE-6: Order custom meals not on the menu]
+        E3[FE-10: Manage favorite items.]
     end
 
     subgraph ''
         F[Feedback System]
         F1[FE-7: Request and collect feedback from customers]
+        F2[FE-8:  Contact support.]
     end
 
     A --> B
@@ -37,6 +40,7 @@ graph LR
 
     B --> B1
     B --> B2
+    B --> B3
 
     C --> C1
 
@@ -44,6 +48,8 @@ graph LR
 
     E --> E1
     E --> E2
-
+    E --> E3
+    
     F --> F1
+    F --> F2
 
